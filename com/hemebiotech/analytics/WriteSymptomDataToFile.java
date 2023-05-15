@@ -23,17 +23,18 @@ public class WriteSymptomDataToFile implements ISymptomWriter {
     }
     @Override
     public void writeSymptoms(Map<String, Integer> symptoms){ 
-        if ("result.out" != null) {
+  
             try {
                     FileWriter writer = new FileWriter ("result.out");
                     for (Map.Entry<String, Integer> entry : symptoms.entrySet()) {
                         String symptom = entry.getKey();
                         writer.write( symptom + " : " + entry.getValue().toString()+ "\n");
                     } 
+		            writer.close();
                 }
             catch (IOException e) {
 				        e.printStackTrace();
 			    }
-        };
+     
     }
 }

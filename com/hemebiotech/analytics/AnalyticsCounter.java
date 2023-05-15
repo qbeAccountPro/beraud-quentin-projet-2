@@ -18,7 +18,7 @@ public class AnalyticsCounter{
         this.writer = writer;
         }
 	
-	public static void main(String args[]) throws Exception {
+	/*public static void main(String args[]) throws Exception {
 		// first get input
 		BufferedReader reader = new BufferedReader (new FileReader("symptoms.txt"));
 		String line = reader.readLine();
@@ -47,7 +47,7 @@ public class AnalyticsCounter{
 		writer.write("rash: " + rashCount + "\n");
 		writer.write("dialated pupils: " + pupilCount + "\n");
 		writer.close();
-	}
+	}*/
 
     public List<String> getSymptoms() {
         return reader.getSymptoms();
