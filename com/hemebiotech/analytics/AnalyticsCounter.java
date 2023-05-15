@@ -3,11 +3,20 @@ package com.hemebiotech.analytics;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.FileWriter;
+import java.util.*;
 
-public class AnalyticsCounter {
+
+public class AnalyticsCounter{
 	private static int headacheCount = 0;	
 	private static int rashCount = 0;		
-	private static int pupilCount = 0;		
+	private static int pupilCount = 0;	
+	public ISymptomReader reader;
+    public ISymptomWriter writer;
+
+    public AnalyticsCounter(ISymptomReader reader, ISymptomWriter writer) {
+        this.reader = reader;
+        this.writer = writer;
+    }
 	
 	public static void main(String args[]) throws Exception {
 		// first get input
@@ -31,7 +40,7 @@ public class AnalyticsCounter {
 			}
 			line = reader.readLine();	// get another symptom
 		}
-		
+
 		// next generate output
 		FileWriter writer = new FileWriter ("result.out");
 		writer.write("headache: " + headCount + "\n");
@@ -39,4 +48,5 @@ public class AnalyticsCounter {
 		writer.write("dialated pupils: " + pupilCount + "\n");
 		writer.close();
 	}
+  
 }
