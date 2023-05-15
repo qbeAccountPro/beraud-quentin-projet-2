@@ -1,33 +1,39 @@
 package com.hemebiotech.analytics;
 
+import com.hemebiotech.analytics.AnalyticsCounter;
+import com.hemebiotech.analytics.ReadSymptomDataFromFile;
+import com.hemebiotech.analytics.WriteSymptomDataToFile;
 import java.util.List;
 import java.util.Map;
-import com.hemebiotech.analytics.*;
+
 
 public class Main {
+  /**
+    
+    * The main method of the program.
+    * Create an instance of the different object, writer, reader and counter
+    * And call different functions of each.
+    */
+  public static void main(String[] args) {
+    // Instantiate a Symptom Reader object
+    ISymptomReader reader = new ReadSymptomDataFromFile("symptoms.txt");
 
-    public static void main(String[] args) {
+    // Instantiate a Symptom Writer object
+    ISymptomWriter writer = new WriteSymptomDataToFile("result.out");
 
-        // Instantiation d'un objet ISymptomReader
-        ISymptomReader reader = new ReadSymptomDataFromFile("symptoms.txt");
+    // Instantiate a Symptom Counter object
+    AnalyticsCounter counter = new AnalyticsCounter(reader, writer);
 
-        // Instantiation d'un objet ISymptomWriter
-        ISymptomWriter writer = new WriteSymptomDataToFile();
+    // Retrieve the list of symptoms
+    List<String> symptomsList = reader.getSymptoms();
 
-        // Instantiation d'un objet AnalyticsCounter
-        AnalyticsCounter counter = new AnalyticsCounter(reader, writer);
+    // Retrieve the list of symptoms then count the occurrences
+    Map<String, Integer> symptomsMap = counter.countSymptoms(symptomsList);
 
-        // Récupère la liste des symtpomes
-        List<String> symptomsList = reader.getSymptoms();
+    // Get the collection of symptoms, then sort alphabetically
+    Map<String, Integer> symptomsMapSorted = counter.sortSymptoms(symptomsMap);
 
-        // Récupère la liste des symtpomes, comptes les occurences
-        Map<String, Integer> symptomsMap = counter.countSymptoms(symptomsList);
-
-        // Récupère la collection des symptomes, puis on la trie alphabétiquement
-        Map<String, Integer> symptomsMapSorted = counter.sortSymptoms(symptomsMap);
-
-        writer.writeSymptoms(symptomsMapSorted);
-
-    }
-
+    // Write the file with the list of symptoms and their quantities
+    writer.writeSymptoms(symptomsMapSorted);
+  }
 }
