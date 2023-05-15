@@ -16,7 +16,7 @@ public class AnalyticsCounter{
     public AnalyticsCounter(ISymptomReader reader, ISymptomWriter writer) {
         this.reader = reader;
         this.writer = writer;
-    }
+        }
 	
 	public static void main(String args[]) throws Exception {
 		// first get input
@@ -48,5 +48,32 @@ public class AnalyticsCounter{
 		writer.write("dialated pupils: " + pupilCount + "\n");
 		writer.close();
 	}
+
+    public List<String> getSymptoms() {
+        return reader.getSymptoms();
+    }
+
+    public Map<String, Integer> countSymptoms (List<String> symptoms) { 
+        Map<String, Integer> symptomsMap = new HashMap<>();
+        for(String symptom : symptoms ){          
+            if (symptomsMap.containsKey(symptom)) { 
+                int count = symptomsMap.get(symptom); 
+                symptomsMap.put(symptom, count + 1); 
+            } else {
+                symptomsMap.put(symptom, 1);
+            }
+        }
+        return symptomsMap;
+    }
+
+    public Map<String, Integer> sortSymptoms(Map<String, Integer> symptoms) { 
+    Map<String, Integer> symptomsSortedAlphabetically = new TreeMap<>(symptoms);
+    return symptomsSortedAlphabetically;
+    }
+
+    public void writeSymptoms(Map<String, Integer> symptoms) { 
+
+    }
   
+
 }
